@@ -2,7 +2,12 @@ const express = require('express');
 
 const ctrl = require('../../controllers/contacts');
 
-const { validateBody, isValidId, authenticate } = require('../../middlewares');
+const {
+  validateBody,
+  isValidId,
+  authenticate,
+  multerUpload,
+} = require('../../middlewares');
 
 const { schemas } = require('../../models/contact');
 
@@ -16,6 +21,7 @@ router.post(
   '/',
   authenticate,
   validateBody(schemas.addSchema),
+  multerUpload.single('image'),
   ctrl.addContact
 );
 

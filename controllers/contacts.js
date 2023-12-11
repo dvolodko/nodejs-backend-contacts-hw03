@@ -25,6 +25,7 @@ const getContactById = async (req, res) => {
 const addContact = async (req, res) => {
   const { _id: owner } = req.user;
   const result = await Contact.create({ ...req.body, owner });
+  console.log(req.file);
   res.status(201).json(result);
 };
 
