@@ -2,12 +2,7 @@ const express = require('express');
 
 const ctrl = require('../../controllers/contacts');
 
-const {
-  validateBody,
-  isValidId,
-  authenticate,
-  multerUpload,
-} = require('../../middlewares');
+const { validateBody, isValidId, authenticate } = require('../../middlewares');
 
 const { schemas } = require('../../models/contact');
 
@@ -17,11 +12,12 @@ router.get('/', authenticate, ctrl.getAll);
 
 router.get('/:contactId', authenticate, isValidId, ctrl.getContactById);
 
+// multerUpload.fields([{name: 'cover', maxCount: 1}, {name: 'subcover', maxCount: 2}]);
+// multerUpload.array('cover', 8);
 router.post(
   '/',
   authenticate,
   validateBody(schemas.addSchema),
-  multerUpload.single('image'),
   ctrl.addContact
 );
 
